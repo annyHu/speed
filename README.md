@@ -1,4 +1,3 @@
-# case
 
 ## Project setup
 ```
