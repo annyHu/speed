@@ -8,7 +8,7 @@ export default {
   },
   // 传入日期,返回年月日，时分秒
   secondFormat: (date, separator = '-') => {
-    return moment(date).format(`YYYY${separator}MM${separator}DD hh:mm:ss`)
+    return moment(date).format(`YYYY${separator}MM${separator}DD HH:mm:ss`)
   },
   // 获取日期  默认获取当天日期，getTime('week') 获取本周开始日期；getTime('month') 本月开始日期，getTime('pre'),昨天日期
   getTime(type) {
@@ -47,4 +47,55 @@ export default {
     };
     xhr.send(params)
   }
+}
+
+/**
+ * @description 绑定事件 on(element, event, handler)
+ */
+export const on = (function () {
+  if (document.addEventListener) {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.addEventListener(event, handler, false)
+      }
+    }
+  } else {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.attachEvent('on' + event, handler)
+      }
+    }
+  }
+})()
+
+/**
+ * @description 解绑事件 off(element, event, handler)
+ */
+export const off = (function () {
+  if (document.removeEventListener) {
+    return function (element, event, handler) {
+      if (element && event) {
+        element.removeEventListener(event, handler, false)
+      }
+    }
+  } else {
+    return function (element, event, handler) {
+      if (element && event) {
+        element.detachEvent('on' + event, handler)
+      }
+    }
+  }
+})()
+
+/**
+ * @description 获取窗口高度
+ */
+export const getClientHeight = () => {
+  let clientHeight=0;
+  if(document.body.clientHeight&&document.documentElement.clientHeight) {
+      clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+  } else {
+      clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+  }
+  return clientHeight;
 }
